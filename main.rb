@@ -8,7 +8,7 @@ require_relative 'game_checker'
 
 # Class to initialize objects of all the classes and run the methods sequentially to run tictactoe
 class TicTacToeMain
-  # Declare the constants
+  # Declare the constants and load the module
   SIZE = 3
   PLAYER_O = 'OOO'.freeze
   PLAYER_X = 'XXX'.freeze

@@ -1,10 +1,11 @@
 # frozen_string_literal: false
 
 require 'timeout'
+require_relative 'board_initializer'
 
 # Class to input the moves from the user and place it in the board.
 class MovePlacer
-  # Declare Constants
+  # Declare constants and load module.
   MOVE_TIMEOUT = 20
   include BoardInitializer
 

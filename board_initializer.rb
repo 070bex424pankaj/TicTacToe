@@ -1,7 +1,7 @@
 # Module to initialize and print the board
 # frozen_string_literal: false
 
-# Class to initialize tic tac toe board and print the board in the console.
+# Module to initialize and print the board.
 module BoardInitializer
   # Declare Constants
   EMPTY = '-'.freeze
