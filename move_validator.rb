@@ -2,16 +2,24 @@
 
 # Class to validate if the user input moves are valid or not
 class MoveValidator
-  # Declare Constants
-  INDEX_ARRAY = [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2, 1], [2, 2]].freeze
-
   def initialize
     @moves = []
+    @index_array = []
+  end
+
+  # Generate validation array for user input
+  def index_array(size)
+    [*0...size].each do |x|
+      [*0...size].each do |y|
+        @index_array << [x, y]
+      end
+    end
   end
 
   # Checks if the move entered is valid or not.
-  def valid_move?(index)
-    if INDEX_ARRAY.include?(index)
+  def valid_move?(index, size)
+    index_array(size)
+    if @index_array.include?(index)
       true
     else
       false

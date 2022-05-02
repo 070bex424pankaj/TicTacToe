@@ -14,12 +14,12 @@ class GameChecker
   end
 
   # Get patterns for rows, cols and diagonals to see if there is a winning pattern or not
-  def get_patterns(board, index)
+  def get_patterns(board, size, index)
     board.each do |x, y|
       @row_s += y if index == x[0]
       @cols_s += y if index == x[1]
       @diag1 += y if x[0] == x[1]
-      @diag2 += y if x[0] == index && x[1] == 2 - index
+      @diag2 += y if x[0] == index && x[1] == size - 1 - index
     end
   end
 
@@ -30,7 +30,7 @@ class GameChecker
       @row_s = ''
       @cols_s = ''
       @diag1 = ''
-      get_patterns(board, index)
+      get_patterns(board, size, index)
       return true if [@row_s, @cols_s, @diag1].include?(player)
     end
     return true if @diag2 == player
