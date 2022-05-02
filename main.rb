@@ -28,7 +28,7 @@ class TicTacToeMain
       puts 'Enter the size for tictactoe'
       @size = gets.chomp.to_i
       input_size_flag = false if @size >= 3 && @size <= 6
-      puts "Enter the size 3, 4, 5, 6"
+      puts 'Enter the size 3, 4, 5, 6'
 
     end
   end
