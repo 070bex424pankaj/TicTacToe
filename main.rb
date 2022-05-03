@@ -3,22 +3,23 @@
 
 require_relative 'board_initializer'
 require_relative 'move_placer'
-require_relative 'move_validator'
 require_relative 'game_checker'
 
 # Class to initialize objects of all the classes and run the methods sequentially to run tictactoe
 class TicTacToeMain
-  include BoardInitializer
-
   def initialize
     @size = nil
     @player_o = 'O'
     @player_x = 'X'
     @player = 'player_O'
     @board = {}
-    @move_place = MovePlacer.new
-    @move_validate = MoveValidator.new
-    @game = GameChecker.new
+
+    input_size
+    initialize_winning_pattern
+
+    @board_initializer = BoardInitializer.new(@size)
+    @move_placer = MovePlacer.new(@size)
+    @game_checker = GameChecker.new(@size, @player_o, @player_x)
   end
 
   # Get the size for tictactoe
@@ -40,29 +41,33 @@ class TicTacToeMain
   # Entry method
   def main
     print "\n"
-    input_size
-    initialize_winning_pattern
-    @board = init_board(@size, @board)
-    print_board(@board)
+    @board = @board_initializer.init_board(@board)
+    @board_initializer.print_board(@board)
     if game.nil?
       puts "#{@player} lost the game due to timeout error!"
       return nil
     end
 
-    @game.game_winner(@board, @size, @player_o, @player_x)
+    @game_checker.game_winner(@board)
+  end
+
+  # Method to check and place move
+  def check_and_place_move(index)
+    if @move_placer.valid_move?(index) && @move_placer.repeated_moves?(index)
+      @board, @player = @move_placer.place_move(@board, @player, index)
+      @board_initializer.print_board(@board)
+    else
+      puts 'Enter a valid move from the matrix'
+    end
   end
 
   # Method to check if game has ended or not
   def game
-    until @game.game_ended?(@board, @size, @player_o, @player_x)
-      index = @move_place.get_user_input(@player)
+    until @game_checker.game_ended?(@board)
+      index = @move_placer.get_user_input(@player)
       return nil if index.nil?
 
-      if @move_validate.valid_move?(index, @size) && @move_validate.repeated_moves?(index)
-        @board, @player = @move_place.place_move(@board, @player, index)
-      else
-        puts 'Enter a valid move from the matrix'
-      end
+      check_and_place_move(index)
     end
     true
   end

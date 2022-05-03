@@ -1,15 +1,19 @@
-# Module to initialize and print the board
+# class to initialize and print the board
 # frozen_string_literal: false
 
-# Module to initialize and print the board.
-module BoardInitializer
+# class to initialize and print the board.
+class BoardInitializer
   # Declare Constants
   EMPTY = '-'.freeze
 
+  def initialize(size)
+    @size = size
+  end
+
   # Initializes the game board.
-  def init_board(size, board)
-    [*0...size].each do |x|
-      [*0...size].each do |y|
+  def init_board(board)
+    [*0...@size].each do |x|
+      [*0...@size].each do |y|
         board[[x, y]] = EMPTY
       end
     end
