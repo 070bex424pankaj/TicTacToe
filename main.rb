@@ -76,3 +76,7 @@ end
 # Initialize an object of TicTacToe class
 t_t_t = TicTacToeMain.new
 puts 'Game ended' if t_t_t.main.nil?
+
+
+# just test
+#new test
